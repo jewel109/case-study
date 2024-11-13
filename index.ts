@@ -3,7 +3,7 @@ interface IEmploy {
   calculateSalary(): number
 }
 class Employ implements IEmploy {
-  private hour
+  private hour: number
 
   constructor(hour: number) {
     this.hour = hour
@@ -59,3 +59,4 @@ class Salary {
 const salary = new Salary("regular", 2)
 
 const salary2 = new Salary("contract", 40)
+
