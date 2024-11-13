@@ -2,7 +2,7 @@
 interface IEmploy {
   calculateSalary(): number
 }
-class Employ implements IEmploy {
+class Employee implements IEmploy {
   private hour: number
 
   constructor(hour: number) {
@@ -14,7 +14,7 @@ class Employ implements IEmploy {
   }
 }
 
-class ContractEmploy implements IEmploy {
+class ContractEmployee implements IEmploy {
   private fixedRate: number
   constructor(fixedRate: number) {
     this.fixedRate = fixedRate
@@ -48,15 +48,15 @@ class Salary {
 
   generateSalary(): number {
     if (this.employType == "regular") {
-      return this.salary = new Employ(2).calculateSalary()
+      return this.salary = new Employee(2).calculateSalary()
     } else {
-      return this.salary = new ContractEmploy(4).calculateSalary()
+      return this.salary = new ContractEmployee(4).calculateSalary()
 
     }
   }
 }
 
-const salary = new Salary("regular", 2)
+const salary = new Salary("regular", 2).generateSalary()
 
-const salary2 = new Salary("contract", 40)
+const salary2 = new Salary("contract", 40).generateSalary()
 
