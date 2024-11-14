@@ -1,62 +1,73 @@
 
-interface IEmploy {
-  calculateSalary(): number
-}
-class Employee implements IEmploy {
-  private hour: number
 
-  constructor(hour: number) {
-    this.hour = hour
-  }
-  calculateSalary() {
-    console.log("calculating salary for regular Employ for " + this.hour)
-    return this.hour
-  }
+// Base class with common methods
+abstract class MediaFile {
+  abstract play(): void;
+  abstract pause(): void;
+  abstract stop(): void;
 }
 
-class ContractEmployee implements IEmploy {
-  private fixedRate: number
-  constructor(fixedRate: number) {
-    this.fixedRate = fixedRate
+// AudioFile subclass implementing common methods
+class AudioFile extends MediaFile {
+  play(): void {
+    console.log("Playing audio file");
   }
-  calculateSalary() {
-    console.log("calculating salary for ContractEmploy on fixedRate " + this.fixedRate)
-    return this.fixedRate
+  pause(): void {
+    console.log("Pausing audio file");
+  }
+  stop(): void {
+    console.log("Stopping audio file");
   }
 }
 
-type EmployType = "regular" | "contract"
-class Salary {
-
-  employType?: EmployType
-  hours?: number
-  fixedRate?: number
-  salary?: number
-
-
-  constructor(employType: EmployType, secondArg: number) {
-    if (this.employType == "regular") {
-      this.hours = secondArg
-    } else if (this.employType == "contract") {
-      this.fixedRate = secondArg
-    }
-    else {
-      throw new Error("Invalid employType provided")
-    }
-
+// VideoFile subclass implementing common methods
+class VideoFile extends MediaFile implements SubtitleSupport {
+  play(): void {
+    console.log("Playing video file");
+    this.showSubtitles(); // Example of video-specific behavior
+  }
+  pause(): void {
+    console.log("Pausing video file");
+  }
+  stop(): void {
+    console.log("Stopping video file");
   }
 
-  generateSalary(): number {
-    if (this.employType == "regular") {
-      return this.salary = new Employee(2).calculateSalary()
+  showSubtitles(): void {
+    console.log("Displaying subtitles");
+  }
+}
+interface SubtitleSupport {
+  showSubtitles(): void;
+}
+// Media player class that handles any MediaFile without knowing its type
+class MediaPlayer {
+  playMedia(file: MediaFile): void {
+    file.play();
+  }
+
+  pauseMedia(file: MediaFile): void {
+    file.pause();
+  }
+
+  stopMedia(file: MediaFile): void {
+    file.stop();
+  }
+  showSubtitles(file: MediaFile): void {
+    if ("showSubtitles" in file) {
+      (file as SubtitleSupport).showSubtitles();
     } else {
-      return this.salary = new ContractEmployee(4).calculateSalary()
-
+      console.log("This media type does not support subtitles.");
     }
   }
 }
 
-const salary = new Salary("regular", 2).generateSalary()
+// Example usage
+const audio = new AudioFile();
+const video = new VideoFile();
+const player = new MediaPlayer();
 
-const salary2 = new Salary("contract", 40).generateSalary()
-
+player.playMedia(audio);  // Output: Playing audio file
+player.playMedia(video);  // Output: Playing video file, Displaying subtitles
+player.showSubtitles(audio)
+player.showSubtitles(video)

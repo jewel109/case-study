@@ -1,8 +1,8 @@
 
-# case study id 2
+# case study id 4
 
-Background: A payroll system calculates salaries for different employee types. A general Employee class calculates salary based on hours worked, while ContractEmployee (a derived class) might have a different payment calculation, like a fixed contract rate. The payroll system processes all employee types and expects consistent results.
+Background: A media player handles different media types like audio and video files. It has a MediaFile base class with common methods (play, pause, stop), while AudioFile and VideoFile subclasses may have additional needs (e.g., subtitles for video). The player should be able to manage any file type seamlessly without extra conditions.
 
-Question: How would you design the Employee and ContractEmployee classes to ensure the payroll system handles both without needing special conditions?
+Question: How would you structure the MediaFile, AudioFile, and VideoFile classes so the player works consistently with all file types?
 
 **solution in `index.ts` file**
